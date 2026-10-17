@@ -36,6 +36,7 @@ from .const import (
     CONF_CAMERA_URL,
     CONF_CHECK_CODE,
     CONF_ENABLE_CANCEL,
+    CONF_ENABLE_LIGHT,
     CONF_ENABLE_PAUSE_RESUME,
     CONF_SCAN_INTERVAL,
     CONF_SERIAL_NUMBER,
@@ -163,6 +164,7 @@ class CreatorOptionsFlow(OptionsFlow):
                         CONF_CAMERA_URL: url,
                         CONF_ENABLE_CANCEL: user_input.get(CONF_ENABLE_CANCEL, False),
                         CONF_ENABLE_PAUSE_RESUME: user_input.get(CONF_ENABLE_PAUSE_RESUME, False),
+                        CONF_ENABLE_LIGHT: user_input.get(CONF_ENABLE_LIGHT, True),
                     }
                 )
 
@@ -187,6 +189,10 @@ class CreatorOptionsFlow(OptionsFlow):
                 vol.Required(
                     CONF_ENABLE_PAUSE_RESUME,
                     default=options.get(CONF_ENABLE_PAUSE_RESUME, False),
+                ): bool,
+                vol.Required(
+                    CONF_ENABLE_LIGHT,
+                    default=options.get(CONF_ENABLE_LIGHT, True),
                 ): bool,
             }
         )

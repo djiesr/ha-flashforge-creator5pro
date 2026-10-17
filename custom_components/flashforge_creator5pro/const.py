@@ -20,3 +20,6 @@ CANCEL_ARM_SECONDS = 30
 
 # Pause / resume: off unless enabled in the options. No arming.
 CONF_ENABLE_PAUSE_RESUME = "enable_pause_resume"
+
+# Chamber light: harmless, so on unless disabled in the options.
+CONF_ENABLE_LIGHT = "enable_light"

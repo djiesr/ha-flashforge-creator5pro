@@ -296,3 +296,25 @@ async def test_job_commands_payload(method, action):
     _, path, body = printer.requests[0]
     assert path == "/control"
     assert body["payload"] == {"cmd": "jobCtl_cmd", "args": {"jobID": "", "action": action}}
+
+
+@pytest.mark.parametrize(("on", "status"), [(True, "open"), (False, "close")])
+async def test_light_payload(on, status):
+    from api import CreatorController
+
+    async def handler(request, body):
+        return web.json_response({"code": 0})
+
+    printer = FakePrinter(handler)
+    server = TestServer(printer.app(), host="127.0.0.1")
+    await server.start_server()
+    async with aiohttp.ClientSession() as session:
+        controller = CreatorController(
+            session, "127.0.0.1", FAKE_SERIAL, FAKE_CHECK_CODE, port=server.port
+        )
+        await controller.async_set_light(on)
+    await server.close()
+    assert len(printer.requests) == 1
+    _, path, body = printer.requests[0]
+    assert path == "/control"
+    assert body["payload"] == {"cmd": "lightControl_cmd", "args": {"status": status}}

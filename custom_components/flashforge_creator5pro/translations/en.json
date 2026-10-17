@@ -42,11 +42,13 @@
           "scan_interval": "Polling interval (seconds)",
           "camera_url": "Camera stream URL",
           "enable_cancel": "Enable the cancel job button (not an emergency stop)",
-          "enable_pause_resume": "Enable the pause and resume buttons"
+          "enable_pause_resume": "Enable the pause and resume buttons",
+          "enable_light": "Show the chamber light"
         },
         "data_description": {
           "enable_cancel": "Adds a 'Cancel print' button and an 'Arm cancel' switch. The button works only for 30 seconds after arming, and only while a job is running.",
-          "enable_pause_resume": "Pause works only while printing, resume only while paused. No arming needed."
+          "enable_pause_resume": "Pause works only while printing, resume only while paused. No arming needed.",
+          "enable_light": "Turn the printer's interior light on and off."
         }
       }
     },
@@ -227,6 +229,11 @@
       },
       "resume_job": {
         "name": "Resume print"
+      }
+    },
+    "light": {
+      "light": {
+        "name": "Chamber light"
       }
     }
   },

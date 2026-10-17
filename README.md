@@ -2,7 +2,7 @@
 
 > **English:** native Home Assistant integration for the FlashForge Creator 5 Pro, over the
 > printer's local HTTP API (LAN mode). Sensors, Material Station slots, MJPEG camera, and
-> optional pause / resume / cancel buttons (cancel requires arming). No print start.
+> chamber light, optional pause / resume / cancel buttons (cancel requires arming). No print start.
 > Install through HACS as a custom repository (category *Integration*). Not affiliated with
 > FlashForge.
 
@@ -62,6 +62,7 @@ que l'intégration n'est pas installée.
 | URL du flux caméra | `http://<IP>:8080/?action=stream` | toute URL http(s) |
 | Activer le bouton d'annulation | désactivé | oui / non |
 | Activer les boutons pause et reprise | désactivé | oui / non |
+| Afficher l'éclairage intérieur | activé | oui / non |
 
 ## Entités
 
@@ -82,6 +83,7 @@ Toutes les valeurs viennent d'une seule requête `POST /detail`.
 | Code d'erreur, firmware, stockage libre | Diagnostic. |
 | Impression en cours, en pause, problème, porte | Capteurs binaires. « Problème » couvre aussi une pause avec code d'erreur (bourrage). |
 | Caméra | Flux MJPEG du port 8080. |
+| Éclairage intérieur | Entité lumière (allumé / éteint). Commande `lightControl_cmd` sur `/control`. L'état se met à jour à l'interrogation suivante. |
 
 ### Coupure et refus
 

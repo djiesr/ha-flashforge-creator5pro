@@ -138,3 +138,10 @@ def test_can_pause_resume(detail_printing, status, pause, resume):
     info = parse(data)
     assert v.can_pause(info) is pause
     assert v.can_resume(info) is resume
+
+
+@pytest.mark.parametrize(("raw", "expected"), [("open", True), ("close", False)])
+def test_light_on(detail_printing, raw, expected):
+    data = copy.deepcopy(detail_printing)
+    data["detail"]["lightStatus"] = raw
+    assert v.light_on(parse(data)) is expected

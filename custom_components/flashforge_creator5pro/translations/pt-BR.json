@@ -42,11 +42,13 @@
           "scan_interval": "Intervalo de consulta (segundos)",
           "camera_url": "URL do stream da câmera",
           "enable_cancel": "Ativar o botão de cancelar impressão (não é uma parada de emergência)",
-          "enable_pause_resume": "Ativar os botões de pausar e retomar"
+          "enable_pause_resume": "Ativar os botões de pausar e retomar",
+          "enable_light": "Mostrar a luz interna"
         },
         "data_description": {
           "enable_cancel": "Adiciona um botão \"Cancelar impressão\" e um interruptor \"Armar cancelamento\". O botão só funciona nos 30 segundos após armar, e apenas enquanto houver um trabalho em andamento.",
-          "enable_pause_resume": "Pausar só funciona durante a impressão; retomar, apenas quando pausada. Não é preciso armar."
+          "enable_pause_resume": "Pausar só funciona durante a impressão; retomar, apenas quando pausada. Não é preciso armar.",
+          "enable_light": "Ligar e desligar a luz interna da impressora."
         }
       }
     },
@@ -227,6 +229,11 @@
       },
       "resume_job": {
         "name": "Retomar impressão"
+      }
+    },
+    "light": {
+      "light": {
+        "name": "Luz interna"
       }
     }
   },

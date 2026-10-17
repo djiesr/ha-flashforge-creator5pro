@@ -199,3 +199,8 @@ def can_pause(data: FFMachineInfo | None) -> bool:
 
 def can_resume(data: FFMachineInfo | None) -> bool:
     return data is not None and data.machine_state is MachineState.PAUSED
+
+
+def light_on(data: FFMachineInfo) -> bool:
+    """``lightStatus`` from /detail, ``"open"`` when lit."""
+    return bool(data.lights_on)

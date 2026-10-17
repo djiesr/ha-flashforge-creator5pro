@@ -10,8 +10,8 @@ This module sends the same ``POST /detail`` request itself, so it can tell the
 three outcomes apart, and still uses the library to parse the answer.
 
 ``CreatorReader`` sends only ``/detail``. ``CreatorController`` adds three job
-commands: cancel, pause, resume. Nothing here starts a print or sends motion or
-heating commands.
+commands (cancel, pause, resume) and the chamber light. Nothing here starts a
+print or sends motion or heating commands.
 """
 from __future__ import annotations
 
@@ -191,7 +191,7 @@ class CreatorReader:
 
 
 class CreatorController(CreatorReader):
-    """Adds the job commands exposed in Home Assistant: cancel, pause, resume.
+    """Adds the commands exposed in Home Assistant: cancel, pause, resume, light.
 
     All three are ``jobCtl_cmd`` on ``/control`` over HTTP 8898, with the same
     payload as ``JobControl`` in flashforge-python-api 1.6.0. Cancel (which
@@ -215,3 +215,10 @@ class CreatorController(CreatorReader):
 
     async def async_resume_job(self) -> None:
         await self._async_job_control("continue")
+
+    async def async_set_light(self, on: bool) -> None:
+        """Chamber light, ``lightControl_cmd`` (library ``Control.set_led_on/off``)."""
+        await self._async_post(
+            CONTROL_PATH,
+            {"payload": {"cmd": "lightControl_cmd", "args": {"status": "open" if on else "close"}}},
+        )

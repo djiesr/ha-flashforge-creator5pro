@@ -28,6 +28,7 @@ from custom_components.flashforge_creator5pro.const import (
     CANCEL_ARM_SECONDS,
     CONF_CHECK_CODE,
     CONF_ENABLE_CANCEL,
+    CONF_ENABLE_LIGHT,
     CONF_ENABLE_PAUSE_RESUME,
     CONF_SERIAL_NUMBER,
     DEFAULT_SCAN_INTERVAL,
@@ -116,7 +117,7 @@ async def test_setup_creates_read_only_entities(hass: HomeAssistant, machine_inf
     registry = er.async_get(hass)
     entities = er.async_entries_for_config_entry(registry, entry.entry_id)
     domains = {e.domain for e in entities}
-    assert domains == {"sensor", "binary_sensor", "camera"}, "no control entity allowed"
+    assert domains == {"sensor", "binary_sensor", "camera", "light"}, "only the light by default"
 
     def state(key: str, platform: str = "sensor"):
         entity_id = registry.async_get_entity_id(platform, DOMAIN, f"{entry.entry_id}_{key}")
@@ -359,3 +360,41 @@ async def test_pause_resume_buttons(hass: HomeAssistant, machine_info) -> None:
         await _press(hass, ids["resume_job"])
         await hass.async_block_till_done()
         assert (pause.await_count, resume.await_count) == (1, 1)
+
+
+
+async def test_light_on_off(hass: HomeAssistant, machine_info) -> None:
+    entry = _entry()
+    entry.add_to_hass(hass)
+    status = AsyncMock(return_value=machine_info)
+    set_light = AsyncMock()
+    with patch(f"{READER}.async_get_status", status), patch(f"{CONTROLLER}.async_set_light", set_light):
+        assert await hass.config_entries.async_setup(entry.entry_id)
+        await hass.async_block_till_done()
+        light = er.async_get(hass).async_get_entity_id("light", DOMAIN, f"{entry.entry_id}_light")
+        assert hass.states.get(light).state == "off"
+
+        status.return_value = machine_info.model_copy(update={"lights_on": True})
+        await hass.services.async_call("light", "turn_on", {"entity_id": light}, blocking=True)
+        await hass.async_block_till_done()
+        assert set_light.await_args_list[-1].args == (True,)
+        assert hass.states.get(light).state == "on"
+
+        await hass.services.async_call("light", "turn_off", {"entity_id": light}, blocking=True)
+        assert set_light.await_args_list[-1].args == (False,)
+        assert set_light.await_count == 2
+
+
+async def test_light_can_be_hidden(hass: HomeAssistant, machine_info) -> None:
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="Creator 5 Pro",
+        unique_id=_unique_id(FAKE_SERIAL),
+        data=_entry().data,
+        options={CONF_ENABLE_LIGHT: False},
+    )
+    entry.add_to_hass(hass)
+    with patch(f"{READER}.async_get_status", AsyncMock(return_value=machine_info)):
+        assert await hass.config_entries.async_setup(entry.entry_id)
+        await hass.async_block_till_done()
+    assert er.async_get(hass).async_get_entity_id("light", DOMAIN, f"{entry.entry_id}_light") is None

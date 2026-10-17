@@ -1,8 +1,8 @@
 """FlashForge Creator 5 Pro.
 
 Sensors, binary sensors and an MJPEG camera. Job commands, each off unless
-enabled in the options: cancel (after arming), pause, resume. Starting a print
-is not offered.
+enabled in the options: cancel (after arming), pause, resume. Chamber light,
+on unless disabled. Starting a print is not offered.
 """
 from __future__ import annotations
 
@@ -27,6 +27,7 @@ PLATFORMS: list[Platform] = [
     # Create entities only when their option is enabled.
     Platform.SWITCH,
     Platform.BUTTON,
+    Platform.LIGHT,
 ]
 
 type CreatorConfigEntry = ConfigEntry[CreatorCoordinator]

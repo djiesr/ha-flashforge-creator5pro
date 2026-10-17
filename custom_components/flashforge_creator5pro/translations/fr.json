@@ -42,11 +42,13 @@
           "scan_interval": "Intervalle d'interrogation (secondes)",
           "camera_url": "URL du flux caméra",
           "enable_cancel": "Activer le bouton d'annulation de l'impression (ce n'est pas un arrêt d'urgence)",
-          "enable_pause_resume": "Activer les boutons pause et reprise"
+          "enable_pause_resume": "Activer les boutons pause et reprise",
+          "enable_light": "Afficher l'éclairage intérieur"
         },
         "data_description": {
           "enable_cancel": "Ajoute un bouton « Annuler l'impression » et un interrupteur « Armer l'annulation ». Le bouton ne fonctionne que dans les 30 secondes qui suivent l'armement, et seulement pendant une tâche.",
-          "enable_pause_resume": "La pause ne fonctionne que pendant l'impression, la reprise seulement en pause. Pas d'armement."
+          "enable_pause_resume": "La pause ne fonctionne que pendant l'impression, la reprise seulement en pause. Pas d'armement.",
+          "enable_light": "Allumer et éteindre la lumière à l'intérieur de l'imprimante."
         }
       }
     },
@@ -227,6 +229,11 @@
       },
       "resume_job": {
         "name": "Reprendre l'impression"
+      }
+    },
+    "light": {
+      "light": {
+        "name": "Éclairage intérieur"
       }
     }
   },

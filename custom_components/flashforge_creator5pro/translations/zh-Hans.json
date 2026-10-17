@@ -42,11 +42,13 @@
           "scan_interval": "轮询间隔（秒）",
           "camera_url": "摄像头视频流 URL",
           "enable_cancel": "启用“取消打印”按钮（不是紧急停止）",
-          "enable_pause_resume": "启用“暂停”和“继续”按钮"
+          "enable_pause_resume": "启用“暂停”和“继续”按钮",
+          "enable_light": "显示内部照明"
         },
         "data_description": {
           "enable_cancel": "添加“取消打印”按钮和“取消保险”开关。按钮仅在打开保险后的 30 秒内、且有任务进行时有效。",
-          "enable_pause_resume": "暂停仅在打印中有效，继续仅在已暂停时有效。无需打开保险。"
+          "enable_pause_resume": "暂停仅在打印中有效，继续仅在已暂停时有效。无需打开保险。",
+          "enable_light": "开关打印机内部的灯。"
         }
       }
     },
@@ -227,6 +229,11 @@
       },
       "resume_job": {
         "name": "继续打印"
+      }
+    },
+    "light": {
+      "light": {
+        "name": "内部照明"
       }
     }
   },
