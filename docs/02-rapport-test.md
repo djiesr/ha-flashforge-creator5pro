@@ -34,7 +34,7 @@ Elles demandent le numéro de série et le check code.
 | 8 | Journaux Home Assistant : rechercher le numéro de série et le check code, aucune occurrence attendue | à faire |
 | 9 | Annuler l'impression : protocole ci-dessous | à faire |
 | 10 | Pause, reprise : protocole ci-dessous | à faire |
-| 11 | Éclairage intérieur : allumer, éteindre, état cohérent avec l'imprimante | à faire |
+| 11 | Éclairage intérieur : allumer, éteindre, état cohérent avec l'imprimante | **OK** (v0.4.0, 2026-10-17) |
 
 Pour l'étape 8, depuis le terminal SSH de HAOS :
 
