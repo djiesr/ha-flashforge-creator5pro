@@ -54,6 +54,8 @@ que l'intégration n'est pas installée.
 
 ## Options
 
+<img width="334" height="1111" alt="image" src="https://github.com/user-attachments/assets/771e13af-1790-4ff1-8ecc-205f4c1244bd" />
+
 **Paramètres → Appareils et services → FlashForge Creator 5 Pro → Configurer** :
 
 | Option | Défaut | Plage |
