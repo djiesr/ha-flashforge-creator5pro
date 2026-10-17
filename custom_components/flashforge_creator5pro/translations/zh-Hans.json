@@ -1,0 +1,256 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "FlashForge Creator 5 Pro",
+        "description": "序列号和 check code 可在打印机的 LAN 菜单中找到。",
+        "data": {
+          "host": "IP 地址",
+          "name": "名称",
+          "serial_number": "序列号",
+          "check_code": "Check code"
+        },
+        "data_description": {
+          "host": "打印机的 IP 地址，例如 192.168.1.50。"
+        }
+      },
+      "reauth_confirm": {
+        "title": "打印机拒绝了 check code",
+        "description": "已停止轮询。请在打印机的 LAN 菜单中查看 check code，并在此处输入。",
+        "data": {
+          "check_code": "Check code"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "打印机无响应。请检查 IP 地址、打印机是否已开机，以及是否已启用 LAN 模式。",
+      "invalid_auth": "打印机拒绝了序列号或 check code。请先在打印机的 LAN 菜单中核对两者，再重试。请勿猜测：被拒绝的尝试可能导致访问被锁定。",
+      "invalid_response": "打印机有响应，但无法读取其内容。请查看 Home Assistant 日志。",
+      "unsupported_printer": "此打印机不是 Creator 5 Pro。",
+      "unknown": "意外错误。请查看 Home Assistant 日志。"
+    },
+    "abort": {
+      "already_configured": "此打印机已配置。",
+      "reauth_successful": "Check code 已更新。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "选项",
+        "data": {
+          "scan_interval": "轮询间隔（秒）",
+          "camera_url": "摄像头视频流 URL",
+          "enable_cancel": "启用“取消打印”按钮（不是紧急停止）",
+          "enable_pause_resume": "启用“暂停”和“继续”按钮"
+        },
+        "data_description": {
+          "enable_cancel": "添加“取消打印”按钮和“取消保险”开关。按钮仅在打开保险后的 30 秒内、且有任务进行时有效。",
+          "enable_pause_resume": "暂停仅在打印中有效，继续仅在已暂停时有效。无需打开保险。"
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "URL 必须以 http:// 或 https:// 开头。"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "machine_status": {
+        "name": "状态",
+        "state": {
+          "ready": "就绪",
+          "busy": "忙碌",
+          "calibrating": "校准中",
+          "error": "错误",
+          "heating": "加热中",
+          "printing": "打印中",
+          "pausing": "正在暂停",
+          "paused": "已暂停",
+          "cancelled": "已取消",
+          "completed": "已完成",
+          "unknown": "未知"
+        }
+      },
+      "print_progress": {
+        "name": "进度"
+      },
+      "current_file": {
+        "name": "当前文件"
+      },
+      "current_layer": {
+        "name": "当前层"
+      },
+      "total_layers": {
+        "name": "总层数"
+      },
+      "elapsed_time": {
+        "name": "已用时间"
+      },
+      "remaining_time": {
+        "name": "剩余时间"
+      },
+      "print_completion_time": {
+        "name": "预计完成时间"
+      },
+      "nozzle_temperature": {
+        "name": "当前喷嘴温度"
+      },
+      "nozzle_target_temperature": {
+        "name": "当前喷嘴目标温度"
+      },
+      "bed_temperature": {
+        "name": "热床温度"
+      },
+      "bed_target_temperature": {
+        "name": "热床目标温度"
+      },
+      "chamber_temperature": {
+        "name": "腔体温度"
+      },
+      "chamber_target_temperature": {
+        "name": "腔体目标温度"
+      },
+      "job_filament_used_length": {
+        "name": "本次任务已用耗材"
+      },
+      "job_filament_used_weight": {
+        "name": "本次任务已用耗材（重量）"
+      },
+      "active_slot": {
+        "name": "当前料槽"
+      },
+      "cooling_fan_speed": {
+        "name": "冷却风扇"
+      },
+      "chamber_fan_speed": {
+        "name": "腔体风扇"
+      },
+      "tvoc": {
+        "name": "TVOC"
+      },
+      "lifetime_filament": {
+        "name": "累计耗材"
+      },
+      "error_code": {
+        "name": "错误代码"
+      },
+      "firmware_version": {
+        "name": "固件"
+      },
+      "free_disk_space": {
+        "name": "可用存储"
+      },
+      "tool_1_temperature": {
+        "name": "T1 温度"
+      },
+      "tool_1_target_temperature": {
+        "name": "T1 目标温度"
+      },
+      "slot_1": {
+        "name": "料槽 1",
+        "state": {
+          "empty": "空",
+          "unknown": "未知材料"
+        }
+      },
+      "tool_2_temperature": {
+        "name": "T2 温度"
+      },
+      "tool_2_target_temperature": {
+        "name": "T2 目标温度"
+      },
+      "slot_2": {
+        "name": "料槽 2",
+        "state": {
+          "empty": "空",
+          "unknown": "未知材料"
+        }
+      },
+      "tool_3_temperature": {
+        "name": "T3 温度"
+      },
+      "tool_3_target_temperature": {
+        "name": "T3 目标温度"
+      },
+      "slot_3": {
+        "name": "料槽 3",
+        "state": {
+          "empty": "空",
+          "unknown": "未知材料"
+        }
+      },
+      "tool_4_temperature": {
+        "name": "T4 温度"
+      },
+      "tool_4_target_temperature": {
+        "name": "T4 目标温度"
+      },
+      "slot_4": {
+        "name": "料槽 4",
+        "state": {
+          "empty": "空",
+          "unknown": "未知材料"
+        }
+      }
+    },
+    "binary_sensor": {
+      "printing": {
+        "name": "打印中"
+      },
+      "paused": {
+        "name": "已暂停"
+      },
+      "problem": {
+        "name": "故障"
+      },
+      "door": {
+        "name": "舱门"
+      }
+    },
+    "camera": {
+      "camera": {
+        "name": "摄像头"
+      }
+    },
+    "switch": {
+      "arm_cancel": {
+        "name": "取消保险"
+      }
+    },
+    "button": {
+      "cancel_job": {
+        "name": "取消打印"
+      },
+      "pause_job": {
+        "name": "暂停打印"
+      },
+      "resume_job": {
+        "name": "继续打印"
+      }
+    }
+  },
+  "exceptions": {
+    "cancel_not_armed": {
+      "message": "请先打开“取消保险”，然后在 30 秒内按下“取消打印”。"
+    },
+    "cancel_no_job": {
+      "message": "没有可取消的任务：打印机不在打印、暂停、加热或校准状态。未发送任何指令。"
+    },
+    "pause_not_printing": {
+      "message": "无可暂停的任务：打印机未在打印。未发送任何指令。"
+    },
+    "resume_not_paused": {
+      "message": "无可继续的任务：打印机未处于暂停状态。未发送任何指令。"
+    },
+    "command_no_answer": {
+      "message": "打印机无响应。指令可能已收到，也可能未收到：请先检查打印机再重试。（{error}）"
+    },
+    "command_refused": {
+      "message": "打印机拒绝了该指令。（{error}）"
+    },
+    "command_failed": {
+      "message": "指令执行失败。（{error}）"
+    }
+  }
+}

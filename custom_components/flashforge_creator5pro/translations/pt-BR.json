@@ -1,0 +1,256 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "FlashForge Creator 5 Pro",
+        "description": "O número de série e o check code estão no menu LAN da impressora.",
+        "data": {
+          "host": "Endereço IP",
+          "name": "Nome",
+          "serial_number": "Número de série",
+          "check_code": "Check code"
+        },
+        "data_description": {
+          "host": "Endereço IP da impressora, por exemplo 192.168.1.50."
+        }
+      },
+      "reauth_confirm": {
+        "title": "A impressora recusou o check code",
+        "description": "As consultas foram interrompidas. Veja o check code no menu LAN da impressora e digite-o aqui.",
+        "data": {
+          "check_code": "Check code"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "A impressora não responde. Verifique o endereço IP, se a impressora está ligada e se o modo LAN está ativado.",
+      "invalid_auth": "A impressora recusou o número de série ou o check code. Verifique ambos no menu LAN da impressora antes de tentar novamente. Não tente adivinhar: tentativas recusadas podem bloquear o acesso.",
+      "invalid_response": "A impressora respondeu, mas não foi possível ler a resposta. Consulte o log do Home Assistant.",
+      "unsupported_printer": "Esta impressora não é uma Creator 5 Pro.",
+      "unknown": "Erro inesperado. Consulte o log do Home Assistant."
+    },
+    "abort": {
+      "already_configured": "Esta impressora já está configurada.",
+      "reauth_successful": "Check code atualizado."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opções",
+        "data": {
+          "scan_interval": "Intervalo de consulta (segundos)",
+          "camera_url": "URL do stream da câmera",
+          "enable_cancel": "Ativar o botão de cancelar impressão (não é uma parada de emergência)",
+          "enable_pause_resume": "Ativar os botões de pausar e retomar"
+        },
+        "data_description": {
+          "enable_cancel": "Adiciona um botão \"Cancelar impressão\" e um interruptor \"Armar cancelamento\". O botão só funciona nos 30 segundos após armar, e apenas enquanto houver um trabalho em andamento.",
+          "enable_pause_resume": "Pausar só funciona durante a impressão; retomar, apenas quando pausada. Não é preciso armar."
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "A URL deve começar com http:// ou https://."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "machine_status": {
+        "name": "Status",
+        "state": {
+          "ready": "Pronta",
+          "busy": "Ocupada",
+          "calibrating": "Calibrando",
+          "error": "Erro",
+          "heating": "Aquecendo",
+          "printing": "Imprimindo",
+          "pausing": "Pausando",
+          "paused": "Pausada",
+          "cancelled": "Cancelada",
+          "completed": "Concluída",
+          "unknown": "Desconhecido"
+        }
+      },
+      "print_progress": {
+        "name": "Progresso"
+      },
+      "current_file": {
+        "name": "Arquivo atual"
+      },
+      "current_layer": {
+        "name": "Camada atual"
+      },
+      "total_layers": {
+        "name": "Total de camadas"
+      },
+      "elapsed_time": {
+        "name": "Tempo decorrido"
+      },
+      "remaining_time": {
+        "name": "Tempo restante"
+      },
+      "print_completion_time": {
+        "name": "Término estimado"
+      },
+      "nozzle_temperature": {
+        "name": "Temperatura do bico ativo"
+      },
+      "nozzle_target_temperature": {
+        "name": "Alvo do bico ativo"
+      },
+      "bed_temperature": {
+        "name": "Temperatura da mesa"
+      },
+      "bed_target_temperature": {
+        "name": "Alvo da mesa"
+      },
+      "chamber_temperature": {
+        "name": "Temperatura da câmara"
+      },
+      "chamber_target_temperature": {
+        "name": "Alvo da câmara"
+      },
+      "job_filament_used_length": {
+        "name": "Filamento usado (trabalho)"
+      },
+      "job_filament_used_weight": {
+        "name": "Filamento usado (trabalho, peso)"
+      },
+      "active_slot": {
+        "name": "Slot ativo"
+      },
+      "cooling_fan_speed": {
+        "name": "Ventilador de resfriamento"
+      },
+      "chamber_fan_speed": {
+        "name": "Ventilador da câmara"
+      },
+      "tvoc": {
+        "name": "TVOC"
+      },
+      "lifetime_filament": {
+        "name": "Filamento total (vida útil)"
+      },
+      "error_code": {
+        "name": "Código de erro"
+      },
+      "firmware_version": {
+        "name": "Firmware"
+      },
+      "free_disk_space": {
+        "name": "Armazenamento livre"
+      },
+      "tool_1_temperature": {
+        "name": "Temperatura T1"
+      },
+      "tool_1_target_temperature": {
+        "name": "Alvo T1"
+      },
+      "slot_1": {
+        "name": "Slot 1",
+        "state": {
+          "empty": "Vazio",
+          "unknown": "Material desconhecido"
+        }
+      },
+      "tool_2_temperature": {
+        "name": "Temperatura T2"
+      },
+      "tool_2_target_temperature": {
+        "name": "Alvo T2"
+      },
+      "slot_2": {
+        "name": "Slot 2",
+        "state": {
+          "empty": "Vazio",
+          "unknown": "Material desconhecido"
+        }
+      },
+      "tool_3_temperature": {
+        "name": "Temperatura T3"
+      },
+      "tool_3_target_temperature": {
+        "name": "Alvo T3"
+      },
+      "slot_3": {
+        "name": "Slot 3",
+        "state": {
+          "empty": "Vazio",
+          "unknown": "Material desconhecido"
+        }
+      },
+      "tool_4_temperature": {
+        "name": "Temperatura T4"
+      },
+      "tool_4_target_temperature": {
+        "name": "Alvo T4"
+      },
+      "slot_4": {
+        "name": "Slot 4",
+        "state": {
+          "empty": "Vazio",
+          "unknown": "Material desconhecido"
+        }
+      }
+    },
+    "binary_sensor": {
+      "printing": {
+        "name": "Imprimindo"
+      },
+      "paused": {
+        "name": "Pausada"
+      },
+      "problem": {
+        "name": "Problema"
+      },
+      "door": {
+        "name": "Porta"
+      }
+    },
+    "camera": {
+      "camera": {
+        "name": "Câmera"
+      }
+    },
+    "switch": {
+      "arm_cancel": {
+        "name": "Armar cancelamento"
+      }
+    },
+    "button": {
+      "cancel_job": {
+        "name": "Cancelar impressão"
+      },
+      "pause_job": {
+        "name": "Pausar impressão"
+      },
+      "resume_job": {
+        "name": "Retomar impressão"
+      }
+    }
+  },
+  "exceptions": {
+    "cancel_not_armed": {
+      "message": "Ative primeiro \"Armar cancelamento\" e pressione \"Cancelar impressão\" em até 30 segundos."
+    },
+    "cancel_no_job": {
+      "message": "Nenhum trabalho para cancelar: a impressora não está imprimindo, pausada, aquecendo nem calibrando. Nada foi enviado."
+    },
+    "pause_not_printing": {
+      "message": "Nada para pausar: a impressora não está imprimindo. Nada foi enviado."
+    },
+    "resume_not_paused": {
+      "message": "Nada para retomar: a impressora não está pausada. Nada foi enviado."
+    },
+    "command_no_answer": {
+      "message": "A impressora não responde. O comando pode ou não ter sido recebido: verifique a impressora antes de tentar novamente. ({error})"
+    },
+    "command_refused": {
+      "message": "A impressora recusou o comando. ({error})"
+    },
+    "command_failed": {
+      "message": "O comando falhou. ({error})"
+    }
+  }
+}

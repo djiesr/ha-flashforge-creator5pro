@@ -1,0 +1,256 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "FlashForge Creator 5 Pro",
+        "description": "Find the serial number and check code in the printer's LAN menu.",
+        "data": {
+          "host": "IP address",
+          "name": "Name",
+          "serial_number": "Serial number",
+          "check_code": "Check code"
+        },
+        "data_description": {
+          "host": "IP address of the printer, for example 192.168.1.50."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Printer refused the check code",
+        "description": "Polling has stopped. Read the check code from the printer's LAN menu and enter it here.",
+        "data": {
+          "check_code": "Check code"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "No answer from the printer. Check the IP address, that the printer is on, and that LAN mode is enabled.",
+      "invalid_auth": "The printer refused the serial number or check code. Check both in the printer's LAN menu before trying again. Do not guess: refused attempts may lock access.",
+      "invalid_response": "The printer answered, but its answer could not be read. See the Home Assistant log.",
+      "unsupported_printer": "This printer is not a Creator 5 Pro.",
+      "unknown": "Unexpected error. See the Home Assistant log."
+    },
+    "abort": {
+      "already_configured": "This printer is already configured.",
+      "reauth_successful": "Check code updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options",
+        "data": {
+          "scan_interval": "Polling interval (seconds)",
+          "camera_url": "Camera stream URL",
+          "enable_cancel": "Enable the cancel job button (not an emergency stop)",
+          "enable_pause_resume": "Enable the pause and resume buttons"
+        },
+        "data_description": {
+          "enable_cancel": "Adds a 'Cancel print' button and an 'Arm cancel' switch. The button works only for 30 seconds after arming, and only while a job is running.",
+          "enable_pause_resume": "Pause works only while printing, resume only while paused. No arming needed."
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "The URL must start with http:// or https://."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "machine_status": {
+        "name": "Status",
+        "state": {
+          "ready": "Ready",
+          "busy": "Busy",
+          "calibrating": "Calibrating",
+          "error": "Error",
+          "heating": "Heating",
+          "printing": "Printing",
+          "pausing": "Pausing",
+          "paused": "Paused",
+          "cancelled": "Cancelled",
+          "completed": "Completed",
+          "unknown": "Unknown"
+        }
+      },
+      "print_progress": {
+        "name": "Progress"
+      },
+      "current_file": {
+        "name": "Current file"
+      },
+      "current_layer": {
+        "name": "Current layer"
+      },
+      "total_layers": {
+        "name": "Total layers"
+      },
+      "elapsed_time": {
+        "name": "Elapsed time"
+      },
+      "remaining_time": {
+        "name": "Remaining time"
+      },
+      "print_completion_time": {
+        "name": "Estimated end"
+      },
+      "nozzle_temperature": {
+        "name": "Active nozzle temperature"
+      },
+      "nozzle_target_temperature": {
+        "name": "Active nozzle target"
+      },
+      "bed_temperature": {
+        "name": "Bed temperature"
+      },
+      "bed_target_temperature": {
+        "name": "Bed target"
+      },
+      "chamber_temperature": {
+        "name": "Chamber temperature"
+      },
+      "chamber_target_temperature": {
+        "name": "Chamber target"
+      },
+      "job_filament_used_length": {
+        "name": "Job filament used"
+      },
+      "job_filament_used_weight": {
+        "name": "Job filament used (weight)"
+      },
+      "active_slot": {
+        "name": "Active slot"
+      },
+      "cooling_fan_speed": {
+        "name": "Cooling fan"
+      },
+      "chamber_fan_speed": {
+        "name": "Chamber fan"
+      },
+      "tvoc": {
+        "name": "TVOC"
+      },
+      "lifetime_filament": {
+        "name": "Lifetime filament"
+      },
+      "error_code": {
+        "name": "Error code"
+      },
+      "firmware_version": {
+        "name": "Firmware"
+      },
+      "free_disk_space": {
+        "name": "Free storage"
+      },
+      "tool_1_temperature": {
+        "name": "T1 temperature"
+      },
+      "tool_1_target_temperature": {
+        "name": "T1 target"
+      },
+      "slot_1": {
+        "name": "Slot 1",
+        "state": {
+          "empty": "Empty",
+          "unknown": "Unknown material"
+        }
+      },
+      "tool_2_temperature": {
+        "name": "T2 temperature"
+      },
+      "tool_2_target_temperature": {
+        "name": "T2 target"
+      },
+      "slot_2": {
+        "name": "Slot 2",
+        "state": {
+          "empty": "Empty",
+          "unknown": "Unknown material"
+        }
+      },
+      "tool_3_temperature": {
+        "name": "T3 temperature"
+      },
+      "tool_3_target_temperature": {
+        "name": "T3 target"
+      },
+      "slot_3": {
+        "name": "Slot 3",
+        "state": {
+          "empty": "Empty",
+          "unknown": "Unknown material"
+        }
+      },
+      "tool_4_temperature": {
+        "name": "T4 temperature"
+      },
+      "tool_4_target_temperature": {
+        "name": "T4 target"
+      },
+      "slot_4": {
+        "name": "Slot 4",
+        "state": {
+          "empty": "Empty",
+          "unknown": "Unknown material"
+        }
+      }
+    },
+    "binary_sensor": {
+      "printing": {
+        "name": "Printing"
+      },
+      "paused": {
+        "name": "Paused"
+      },
+      "problem": {
+        "name": "Problem"
+      },
+      "door": {
+        "name": "Door"
+      }
+    },
+    "camera": {
+      "camera": {
+        "name": "Camera"
+      }
+    },
+    "switch": {
+      "arm_cancel": {
+        "name": "Arm cancel"
+      }
+    },
+    "button": {
+      "cancel_job": {
+        "name": "Cancel print"
+      },
+      "pause_job": {
+        "name": "Pause print"
+      },
+      "resume_job": {
+        "name": "Resume print"
+      }
+    }
+  },
+  "exceptions": {
+    "cancel_not_armed": {
+      "message": "Turn on 'Arm cancel' first, then press 'Cancel print' within 30 seconds."
+    },
+    "cancel_no_job": {
+      "message": "No job to cancel: the printer is not printing, paused, heating or calibrating. Nothing was sent."
+    },
+    "pause_not_printing": {
+      "message": "Nothing to pause: the printer is not printing. Nothing was sent."
+    },
+    "resume_not_paused": {
+      "message": "Nothing to resume: the printer is not paused. Nothing was sent."
+    },
+    "command_no_answer": {
+      "message": "No answer from the printer. The command may or may not have been received: check the printer before trying again. ({error})"
+    },
+    "command_refused": {
+      "message": "The printer refused the command. ({error})"
+    },
+    "command_failed": {
+      "message": "The command failed. ({error})"
+    }
+  }
+}
