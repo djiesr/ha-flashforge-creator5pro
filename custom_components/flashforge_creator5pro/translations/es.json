@@ -220,6 +220,23 @@
       },
       "door": {
         "name": "Puerta"
+      },
+      "online": {
+        "name": "En línea",
+        "state_attributes": {
+          "reason": {
+            "name": "Motivo",
+            "state": {
+              "ok": "OK",
+              "unreachable": "Inaccesible",
+              "refused": "Rechazado",
+              "unreadable": "Respuesta ilegible"
+            }
+          },
+          "last_seen": {
+            "name": "Última respuesta"
+          }
+        }
       }
     },
     "camera": {

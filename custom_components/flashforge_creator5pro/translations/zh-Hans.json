@@ -220,6 +220,23 @@
       },
       "door": {
         "name": "舱门"
+      },
+      "online": {
+        "name": "在线",
+        "state_attributes": {
+          "reason": {
+            "name": "原因",
+            "state": {
+              "ok": "正常",
+              "unreachable": "无法连接",
+              "refused": "被拒绝",
+              "unreadable": "响应无法读取"
+            }
+          },
+          "last_seen": {
+            "name": "最后响应"
+          }
+        }
       }
     },
     "camera": {

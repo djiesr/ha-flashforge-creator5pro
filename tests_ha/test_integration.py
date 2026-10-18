@@ -453,3 +453,61 @@ async def test_reconfigure_refused_saves_nothing(hass: HomeAssistant) -> None:
     assert validate.await_count == 1
     assert entry.data[CONF_HOST] == FAKE_HOST
     assert entry.data[CONF_CHECK_CODE] == FAKE_CHECK_CODE
+
+
+async def test_online_sensor_stays_available(
+    hass: HomeAssistant, machine_info, freezer: FrozenDateTimeFactory
+) -> None:
+    entry = _entry()
+    entry.add_to_hass(hass)
+    status = AsyncMock(return_value=machine_info)
+    with patch(f"{READER}.async_get_status", status):
+        assert await hass.config_entries.async_setup(entry.entry_id)
+        await hass.async_block_till_done()
+        online = er.async_get(hass).async_get_entity_id(
+            "binary_sensor", DOMAIN, f"{entry.entry_id}_online"
+        )
+        state = hass.states.get(online)
+        assert state.state == "on"
+        assert state.attributes["reason"] == "ok"
+        first_seen = state.attributes["last_seen"]
+        assert first_seen
+
+        status.side_effect = PrinterUnreachable("No answer (timeout)")
+        freezer.tick(timedelta(seconds=DEFAULT_SCAN_INTERVAL + 1))
+        async_fire_time_changed(hass)
+        await hass.async_block_till_done()
+        state = hass.states.get(online)
+        assert state.state == "off", "off, not unavailable"
+        assert state.attributes["reason"] == "unreachable"
+        assert state.attributes["last_seen"] == first_seen
+
+        status.side_effect = None
+        freezer.tick(timedelta(seconds=DEFAULT_SCAN_INTERVAL + 1))
+        async_fire_time_changed(hass)
+        await hass.async_block_till_done()
+        state = hass.states.get(online)
+        assert state.state == "on"
+        assert state.attributes["reason"] == "ok"
+        assert state.attributes["last_seen"] != first_seen
+
+
+async def test_online_sensor_reports_refusal(
+    hass: HomeAssistant, machine_info, freezer: FrozenDateTimeFactory
+) -> None:
+    entry = _entry()
+    entry.add_to_hass(hass)
+    status = AsyncMock(return_value=machine_info)
+    with patch(f"{READER}.async_get_status", status):
+        assert await hass.config_entries.async_setup(entry.entry_id)
+        await hass.async_block_till_done()
+        online = er.async_get(hass).async_get_entity_id(
+            "binary_sensor", DOMAIN, f"{entry.entry_id}_online"
+        )
+        status.side_effect = PrinterAuthRefused("refused")
+        freezer.tick(timedelta(seconds=DEFAULT_SCAN_INTERVAL + 1))
+        async_fire_time_changed(hass)
+        await hass.async_block_till_done()
+        state = hass.states.get(online)
+        assert state.state == "off"
+        assert state.attributes["reason"] == "refused"

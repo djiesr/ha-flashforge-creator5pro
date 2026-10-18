@@ -220,6 +220,23 @@
       },
       "door": {
         "name": "Door"
+      },
+      "online": {
+        "name": "Online",
+        "state_attributes": {
+          "reason": {
+            "name": "Reason",
+            "state": {
+              "ok": "OK",
+              "unreachable": "Unreachable",
+              "refused": "Refused",
+              "unreadable": "Unreadable answer"
+            }
+          },
+          "last_seen": {
+            "name": "Last seen"
+          }
+        }
       }
     },
     "camera": {

@@ -85,6 +85,7 @@ Toutes les valeurs viennent d'une seule requête `POST /detail`.
 
 | Entité | Remarque |
 |---|---|
+| En ligne | **Toujours disponible.** Activé si la dernière interrogation a réussi. Attributs : `reason` (`ok`, `unreachable` injoignable, `refused` refusé, `unreadable` réponse illisible) et `last_seen` (dernière réponse). |
 | État | prête, impression, pause, chauffe, erreur, etc. |
 | Progression, fichier en cours, couche actuelle, nombre de couches | |
 | Durée écoulée, durée restante | |
@@ -101,6 +102,26 @@ Toutes les valeurs viennent d'une seule requête `POST /detail`.
 | Éclairage intérieur | Entité lumière (allumé / éteint). Commande `lightControl_cmd` sur `/control`. L'état se met à jour à l'interrogation suivante. |
 
 ### Coupure et refus
+
+Le capteur « En ligne » est le seul qui reste disponible pendant une coupure. Exemple
+d'automatisation :
+
+```yaml
+alias: Creator 5 Pro - hors ligne
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.creator_5_pro_en_ligne
+    to: "off"
+    for: "00:02:00"
+actions:
+  - action: notify.notify
+    data:
+      title: Creator 5 Pro
+      message: >-
+        Imprimante hors ligne ({{ state_attr('binary_sensor.creator_5_pro_en_ligne', 'reason') }}).
+```
+
+Adaptez le nom de l'entité à celui de votre installation.
 
 | Situation | Comportement |
 |---|---|
