@@ -20,6 +20,17 @@
         "data": {
           "check_code": "Check code"
         }
+      },
+      "reconfigure": {
+        "title": "Reconfigurar a impressora",
+        "description": "Altere o endereço IP da impressora. Deixe o check code vazio para manter o atual. É feita uma leitura com os novos valores antes de salvar.",
+        "data": {
+          "host": "Endereço IP",
+          "check_code": "Check code"
+        },
+        "data_description": {
+          "check_code": "Opcional. Veja-o no menu LAN da impressora."
+        }
       }
     },
     "error": {
@@ -31,7 +42,8 @@
     },
     "abort": {
       "already_configured": "Esta impressora já está configurada.",
-      "reauth_successful": "Check code atualizado."
+      "reauth_successful": "Check code atualizado.",
+      "reconfigure_successful": "Configuração atualizada."
     }
   },
   "options": {

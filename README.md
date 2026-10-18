@@ -52,6 +52,19 @@ récent l'affiche sans passer par le dépôt `home-assistant/brands`. C'est un d
 le logo FlashForge n'est pas utilisé. HACS peut afficher une icône générique dans sa liste tant
 que l'intégration n'est pas installée.
 
+## Changer l'adresse IP ou le code
+
+**Paramètres → Appareils et services → FlashForge Creator 5 Pro → ⋮ → Reconfigurer.**
+
+- **Adresse IP** : pré-remplie avec l'actuelle.
+- **ID de l'appareil (check code)** : facultatif. Laissez vide pour garder l'actuel.
+
+Une seule lecture est faite avec les nouvelles valeurs ; rien n'est enregistré si elle échoue.
+Le numéro de série ne change pas : il identifie l'imprimante. Si vous avez saisi une URL de
+caméra à la main dans les options, mettez-la aussi à jour ; sinon elle suit la nouvelle adresse.
+
+Pour éviter les changements d'adresse, réservez l'IP de l'imprimante dans le DHCP du routeur.
+
 ## Options
 
 <img width="334" height="1111" alt="image" src="https://github.com/user-attachments/assets/771e13af-1790-4ff1-8ecc-205f4c1244bd" />

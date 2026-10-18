@@ -20,6 +20,17 @@
         "data": {
           "check_code": "Check code"
         }
+      },
+      "reconfigure": {
+        "title": "重新配置打印机",
+        "description": "修改打印机的 IP 地址。check code 留空则保留当前值。保存前会用新值读取一次。",
+        "data": {
+          "host": "IP 地址",
+          "check_code": "Check code"
+        },
+        "data_description": {
+          "check_code": "可选。请在打印机的 LAN 菜单中查看。"
+        }
       }
     },
     "error": {
@@ -31,7 +42,8 @@
     },
     "abort": {
       "already_configured": "此打印机已配置。",
-      "reauth_successful": "Check code 已更新。"
+      "reauth_successful": "Check code 已更新。",
+      "reconfigure_successful": "配置已更新。"
     }
   },
   "options": {

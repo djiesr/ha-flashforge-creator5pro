@@ -144,6 +144,41 @@ class CreatorConfigFlow(ConfigFlow, domain=DOMAIN):
             errors=errors,
         )
 
+    async def async_step_reconfigure(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        """Change the IP address, and the check code only when one is typed.
+
+        The serial number stays: it identifies the printer (the entry's unique ID).
+        One read with the new values per submit, nothing saved unless it succeeds.
+        """
+        errors: dict[str, str] = {}
+        entry = self._get_reconfigure_entry()
+        if user_input is not None:
+            host = user_input[CONF_HOST].strip()
+            check_code = (user_input.get(CONF_CHECK_CODE) or "").strip() or entry.data[
+                CONF_CHECK_CODE
+            ]
+            error = await _async_try_read(
+                self.hass, host, entry.data[CONF_SERIAL_NUMBER], check_code
+            )
+            if error is None:
+                return self.async_update_reload_and_abort(
+                    entry, data_updates={CONF_HOST: host, CONF_CHECK_CODE: check_code}
+                )
+            errors["base"] = error
+
+        defaults = user_input or {}
+        schema = vol.Schema(
+            {
+                vol.Required(
+                    CONF_HOST, default=defaults.get(CONF_HOST, entry.data[CONF_HOST])
+                ): str,
+                vol.Optional(CONF_CHECK_CODE): _SECRET,
+            }
+        )
+        return self.async_show_form(step_id="reconfigure", data_schema=schema, errors=errors)
+
     @staticmethod
     @callback
     def async_get_options_flow(config_entry: ConfigEntry) -> OptionsFlow:

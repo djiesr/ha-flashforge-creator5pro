@@ -398,3 +398,58 @@ async def test_light_can_be_hidden(hass: HomeAssistant, machine_info) -> None:
         assert await hass.config_entries.async_setup(entry.entry_id)
         await hass.async_block_till_done()
     assert er.async_get(hass).async_get_entity_id("light", DOMAIN, f"{entry.entry_id}_light") is None
+
+
+async def test_reconfigure_changes_host_keeps_code(hass: HomeAssistant, machine_info) -> None:
+    entry = _entry()
+    entry.add_to_hass(hass)
+    result = await entry.start_reconfigure_flow(hass)
+    assert result["step_id"] == "reconfigure"
+    validate = AsyncMock(return_value=machine_info)
+    with (
+        patch(f"{READER}.async_validate", validate),
+        patch(f"{READER}.async_get_status", AsyncMock(return_value=machine_info)),
+    ):
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"], {CONF_HOST: "192.0.2.20"}
+        )
+        await hass.async_block_till_done()
+    assert result["type"] is FlowResultType.ABORT
+    assert result["reason"] == "reconfigure_successful"
+    assert entry.data[CONF_HOST] == "192.0.2.20"
+    assert entry.data[CONF_CHECK_CODE] == FAKE_CHECK_CODE
+    assert entry.data[CONF_SERIAL_NUMBER] == FAKE_SERIAL
+    assert validate.await_count == 1
+
+
+async def test_reconfigure_with_new_code(hass: HomeAssistant, machine_info) -> None:
+    entry = _entry()
+    entry.add_to_hass(hass)
+    result = await entry.start_reconfigure_flow(hass)
+    with (
+        patch(f"{READER}.async_validate", AsyncMock(return_value=machine_info)),
+        patch(f"{READER}.async_get_status", AsyncMock(return_value=machine_info)),
+    ):
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"], {CONF_HOST: "192.0.2.21", CONF_CHECK_CODE: " NEWCODE2 "}
+        )
+        await hass.async_block_till_done()
+    assert result["reason"] == "reconfigure_successful"
+    assert entry.data[CONF_HOST] == "192.0.2.21"
+    assert entry.data[CONF_CHECK_CODE] == "NEWCODE2"
+
+
+async def test_reconfigure_refused_saves_nothing(hass: HomeAssistant) -> None:
+    entry = _entry()
+    entry.add_to_hass(hass)
+    result = await entry.start_reconfigure_flow(hass)
+    validate = AsyncMock(side_effect=PrinterAuthRefused("refused"))
+    with patch(f"{READER}.async_validate", validate):
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"], {CONF_HOST: "192.0.2.22", CONF_CHECK_CODE: "BADCODE"}
+        )
+    assert result["type"] is FlowResultType.FORM
+    assert result["errors"] == {"base": "invalid_auth"}
+    assert validate.await_count == 1
+    assert entry.data[CONF_HOST] == FAKE_HOST
+    assert entry.data[CONF_CHECK_CODE] == FAKE_CHECK_CODE

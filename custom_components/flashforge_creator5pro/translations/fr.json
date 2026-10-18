@@ -20,6 +20,17 @@
         "data": {
           "check_code": "ID de l'appareil (check code)"
         }
+      },
+      "reconfigure": {
+        "title": "Reconfigurer l'imprimante",
+        "description": "Modifiez l'adresse IP de l'imprimante. Laissez l'ID de l'appareil vide pour garder l'actuel. Une lecture est faite avec les nouvelles valeurs avant l'enregistrement.",
+        "data": {
+          "host": "Adresse IP",
+          "check_code": "ID de l'appareil (check code)"
+        },
+        "data_description": {
+          "check_code": "Facultatif. À relever dans le menu LAN de l'imprimante."
+        }
       }
     },
     "error": {
@@ -31,7 +42,8 @@
     },
     "abort": {
       "already_configured": "Cette imprimante est déjà configurée.",
-      "reauth_successful": "ID de l'appareil mis à jour."
+      "reauth_successful": "ID de l'appareil mis à jour.",
+      "reconfigure_successful": "Configuration mise à jour."
     }
   },
   "options": {
